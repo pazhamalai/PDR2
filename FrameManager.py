@@ -37,3 +37,7 @@ def check_equality(clause_1, clause_2):
 def print_frame_clauses():
     for frame in frame_clauses:
         print(frame)
+
+def print_frames():
+    for frame in frame_variables:
+        print(frame)
