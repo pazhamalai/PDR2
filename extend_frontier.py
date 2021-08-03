@@ -1,5 +1,5 @@
 import FrameManager
-from utils import convert_clauses
+from utils import *
 from z3 import *
 
 
@@ -15,14 +15,9 @@ def extend_frontier(model, k):
     solver.add(Implies(Fk, model.transition_formula))
     solver.add(Implies(Fk, temp_formula))
 
-    while solver.check(Fk) != unsat:
-        m = solver.model()
-        sat_instance = get_satisfying_instance(model.variables, m)
-        # removeCTL(model, sat_instance, k)
-        solver.add(Implies(Fk, Not(sat_instance)))
-
+    sat_instances = get_all_satisfying_instances(solver, model.variables, Fk)
     solver.pop()
 
-
-def get_satisfying_instance(variables, m):
-    return [m.evaluate(variables[i], model_completion=True) == variables[i] for i in range(0, len(variables) + 1)]
+    for sat_instance in sat_instances:
+        print(sat_instance)
+        # removeCTI(model, sat_instance, k)
