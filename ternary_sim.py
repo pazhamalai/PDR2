@@ -1,7 +1,10 @@
 from z3 import *
-from utils import convert_clauses,star
+from utils import convert_clauses,t_val,f_val
 
 solver = Solver()
+solver.add(t_val == True)
+solver.add(f_val == False)
+
 # solver.add((And(star,False)) == False)
 # solver.add((And(star,True)) == star)
 # solver.add((And(star,star)) == star)
@@ -13,25 +16,36 @@ solver = Solver()
 from Model import Model
 #gets two clauses s and t and returns a new clause t_prime after doing ternary sim on t
 def ternary_sim(model,s,t):
-    vars = model.variables.copy()
+    variables = model.variables.copy()
     trans_func = model.transition_formula
-    new_vars = vars.copy
-    s_next_vars = convert_clauses(s,vars,model.next_state_variables)
+    new_vars = variables.copy()
+    s_next_vars = convert_clauses(s, variables, model.next_state_variables)
     solver.push()
     solver.add(And(t, s_next_vars, trans_func))
     check_sat = solver.check()
-    solver.pop
+    solver.pop()
+    t_prime = t
     if check_sat == sat:
-        for i in range(0,len(vars)):
+        for i in range(0, len(variables)):
+            print("i:",i)
             solver.push()
-            solver.add(And(t,s_next_vars,trans_func))
+            print(variables,new_vars)
+            new_t = convert_clauses(t, variables, new_vars)
+            solver.add(And(new_t,s_next_vars,trans_func))
             if solver.check() == sat:
                 solver.pop()
                 change_vars = new_vars.copy()
                 change_vars[i] = Not(new_vars[i])
-                temp_t = convert_clauses(t,new_vars,)
-
+                temp_t = convert_clauses(t, variables, change_vars)
+                solver.push()
+                solver.add(And(temp_t,s_next_vars,trans_func))
+                if(solver.check()==sat):
+                    new_vars[i] = t_val
+            solver.pop()
+        t_prime = convert_clauses(t, variables, new_vars)
     return t_prime
+
+
 
 
 

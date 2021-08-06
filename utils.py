@@ -1,5 +1,6 @@
 from z3 import *
 #change made here
+t_val , f_val = Bools('t_val f_val') #two variables representing true and false
 def convert_clauses(clause, this_state, next_state):
     temp_clause = substitute(clause, (this_state[0], next_state[0]))
     for i in range(1, len(this_state)):

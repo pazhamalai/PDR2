@@ -1,9 +1,14 @@
 from z3 import *
+from utils import f_val,t_val #new code
 #constant z3 variables for giving true and false values
 solver = Solver()
+
 frame_variables = []
 frame_clauses = []
 
+#new code
+solver.add(f_val==True)
+solver.add(t_val==False)
 
 def add_clause_to_frames(i, clause):
     if i >= len(frame_variables):
