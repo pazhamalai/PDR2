@@ -2,6 +2,7 @@ from z3 import *
 import FrameManager
 from Model import Model
 from propagate_clauses import propagate_clauses
+from ternary_sim import ternary_sim
 
 variables = [Bool("x"), Bool("y"), Bool("z")]
 next_state_variables = [Bool("_x"), Bool("_y"), Bool("_z")]
@@ -25,3 +26,10 @@ print("After propagate clauses:")
 propagate_clauses(model, 1)
 FrameManager.print_frame_clauses()
 FrameManager.print_frames()
+transition_formula2 = And (y == _y, Not(z) == _z)
+model2 = Model(variables, next_state_variables, transition_formula2, initial_state_formula, property_formula)
+s = And(x,y,Not(z))
+t = And(x,y,z)
+t_prime = ternary_sim(model2,s,t)
+print(t_prime)
+print(model2.variables)
