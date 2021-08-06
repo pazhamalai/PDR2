@@ -2,15 +2,6 @@ from z3 import *
 from utils import star
 #constant z3 variables for giving true and false values
 solver = Solver()
-solver.add((And(star,False)) == False)
-solver.add((And(star,True)) == True)
-solver.add((And(star,star)) == star)
-solver.add((Or(star,False)) == star)
-solver.add((Or(star,True)) == True)
-solver.add((Or(star,star)) == star)
-solver.add(Not(star) == star)
-frame_variables = []
-frame_clauses = []
 
 
 def add_clause_to_frames(i, clause):

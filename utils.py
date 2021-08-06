@@ -1,6 +1,5 @@
 from z3 import *
-
-star = Bool('star')
+#change made here
 def convert_clauses(clause, this_state, next_state):
     temp_clause = substitute(clause, (this_state[0], next_state[0]))
     for i in range(1, len(this_state)):
