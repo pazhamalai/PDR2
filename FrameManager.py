@@ -1,6 +1,8 @@
 from z3 import *
 #constant z3 variables for giving true and false values
 solver = Solver()
+frame_variables = []
+frame_clauses = []
 
 
 def add_clause_to_frames(i, clause):

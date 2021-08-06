@@ -28,3 +28,13 @@ FrameManager.print_frame_clauses()
 FrameManager.print_frames()
 
 
+# transition_formula2 = And (y == _y, Not(z) == _z)
+# model2 = Model(variables, next_state_variables, transition_formula2, initial_state_formula, property_formula)
+s = And(x,y,Not(z))
+k = [Not(x),y,z]
+# t = And(x,y,z)
+# t_prime = ternary_sim(model2,s,t)
+# print(t_prime)
+# print(model2.variables)
+from utils import convert_clauses
+print(convert_clauses(s,variables,k))
