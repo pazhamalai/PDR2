@@ -1,5 +1,4 @@
 from z3 import *
-from utils import star
 #constant z3 variables for giving true and false values
 solver = Solver()
 
