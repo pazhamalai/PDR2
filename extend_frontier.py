@@ -21,9 +21,9 @@ def extend_frontier(input_model, k):
     if check_sat == sat:
         solver.add(Fk)
         sat_instances = get_all_satisfying_instances(solver, input_model.variables + input_model.next_state_variables)
-        print("SAT! Instances = " + str(sat_instances))
-    else:
-        print("UNSAT!")
+        # print("SAT! Instances = " + str(sat_instances))
+    # else:
+    #     # print("Unsat")
     solver.pop()
 
     # print("Printing out sat_instances: ")
