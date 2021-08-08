@@ -1,6 +1,7 @@
 import FrameManager
 from utils import *
 from z3 import *
+from remove_cti import removeCTI
 
 
 def extend_frontier(input_model, k):
@@ -20,4 +21,4 @@ def extend_frontier(input_model, k):
 
     for sat_instance in sat_instances:
         print(sat_instance)
-        # removeCTI(input_model, sat_instance, k)
+        removeCTI(input_model, sat_instance, k)
