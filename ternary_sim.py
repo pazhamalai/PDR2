@@ -16,6 +16,7 @@ solver.add(f_val == False)
 
 # gets two clauses s and t and returns a new clause t_prime after doing ternary sim on t
 def ternary_sim(input_model, s, t):
+    #print("\nInside Ternary sim")
     variables = input_model.variables.copy()
     trans_func = input_model.transition_formula
     new_vars = variables.copy()
@@ -25,11 +26,12 @@ def ternary_sim(input_model, s, t):
     check_sat = solver.check()
     solver.pop()
     t_prime = t
+
     if check_sat == sat:
         for i in range(0, len(variables)):
-            print("i:", i)
+            #print("i:", i)
             solver.push()
-            print(variables, new_vars)
+            #print(variables, new_vars)
             new_t = convert_clauses(t, variables, new_vars)
             solver.add(And(new_t, s_next_vars, trans_func))
             if solver.check() == sat:
@@ -41,6 +43,11 @@ def ternary_sim(input_model, s, t):
                 solver.add(And(temp_t, s_next_vars, trans_func))
                 if (solver.check() == sat):
                     new_vars[i] = t_val
+                    temp_t = convert_clauses(t,variables,new_vars)
+                    solver.add(And(temp_t, s_next_vars, trans_func))
+                    if (solver.check() == unsat):
+                        new_vars[i] = f_val
             solver.pop()
         t_prime = convert_clauses(t, variables, new_vars)
+    #print("Exiting ternary sim")
     return t_prime
