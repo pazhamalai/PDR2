@@ -8,8 +8,8 @@ frame_variables = []
 frame_clauses = []
 
 # new code
-solver.add(f_val == True)
-solver.add(t_val == False)
+solver.add(t_val == True)
+solver.add(f_val == False)
 
 
 def add_clause_to_frames(i, clause):
