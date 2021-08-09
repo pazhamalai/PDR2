@@ -1,14 +1,11 @@
-from z3 import *
 import FrameManager
-from InputModel import InputModel
 from propagate_clauses import propagate_clauses
 from utils import *
-from ternary_sim import ternary_sim
 from examples import get_example
 from extend_frontier import extend_frontier
 
 
-#pdr algorithm
+# pdr algorithm
 def pdr_algo(input_model):
     FrameManager.solver.push()
     FrameManager.solver.add(input_model.initial_states_formula)
@@ -28,6 +25,7 @@ def pdr_algo(input_model):
                 print("Model satisfies AG p")
                 break
             k = k + 1
+
 
 input_model = get_example()
 pdr_algo(input_model)
